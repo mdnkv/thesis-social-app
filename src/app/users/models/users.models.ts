@@ -4,4 +4,5 @@ export interface User {
     lastName: string
     avatarUrl: string | null
     active: boolean
+    currentUser: boolean
 }

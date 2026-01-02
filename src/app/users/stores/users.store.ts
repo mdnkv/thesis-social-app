@@ -7,11 +7,15 @@ import { UserService } from '../services/user';
 interface UserState {
     isCurrentUserLoaded: boolean
     currentUser: User | null
+    isUserLoaded: boolean
+    user: User | null
 }
 
 const initialState: UserState = {
     isCurrentUserLoaded: false,
-    currentUser: null
+    currentUser: null,
+    isUserLoaded: false,
+    user: null
 }
 
 export const UserStore = signalStore(
@@ -27,6 +31,16 @@ export const UserStore = signalStore(
                     },
                     error: (err) => {
                         console.log(err)
+                    }
+                })
+            },
+            loadUserById(id: string){
+                userService.getUserById(id).subscribe({
+                    next: result => {
+                        patchState(store, {isUserLoaded: true, user: result})
+                    },
+                    error: (err) => {
+                        patchState(store, {isUserLoaded: false})
                     }
                 })
             }
