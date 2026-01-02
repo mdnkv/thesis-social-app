@@ -1,0 +1,29 @@
+<nav class="navbar is-fixed-top">
+    <div class="navbar-brand"></div>
+    <div class="navbar-menu" [class.is-active]="isMenuActive()">
+        <div class="navbar-start">
+            <a (click)="openLink('/home')" class="navbar-item">Home</a>
+        </div>
+        <div class="navbar-end">
+            @if (userStore.isCurrentUserLoaded()){
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        <div class="media">
+                            <div class="media-left">
+                                <div class="image is-24x24">
+                                    <img [src]="userStore.currentUser()?.avatarUrl" class="is-rounded"/>
+                                </div>
+                            </div>
+                            <div class="media-content">
+                                <span>{{userStore.currentUser()?.firstName}}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a (click)="onLogout()" class="navbar-item">Log out</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</nav>
